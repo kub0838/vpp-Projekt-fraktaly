@@ -3,16 +3,16 @@ import numba
 
 
 @numba.njit(parallel=True)
-def julia(xmin, xmax, ymin, ymax, w, h, max_iter, cr, ci):
-    img = np.zeros((h, w))
-    c = cr + ci * 1j
+def julia(xmin: float, xmax: float, ymin: float, ymax: float, w: int, h: int, max_iter: int, cr: float, ci: float) -> np.ndarray:
+    img: np.ndarray = np.zeros((h, w))
+    c: complex = cr + ci * 1j
 
     for i in range(h):
         for j in range(w):
-            x = xmin + (xmax - xmin) * j / w
-            y = ymin + (ymax - ymin) * i / h
+            x: float = xmin + (xmax - xmin) * j / w
+            y: float = ymin + (ymax - ymin) * i / h
 
-            z = x + 1j * y
+            z: complex = x + 1j * y
 
             for k in range(max_iter):
                 z = z * z + c
