@@ -3,15 +3,15 @@ import numba
 
 
 @numba.njit(parallel=True)
-def mandelbrot_pg(xmin, xmax, ymin, ymax, w, h, max_iter):
-    img = np.zeros((h, w))
+def mandelbrot_pg(xmin: float, xmax: float, ymin: float, ymax: float, w: int, h: int, max_iter: int) -> np.ndarray:
+    img: np.ndarray = np.zeros((h, w))
     for i in range(h):
         for j in range(w):
-            x = xmin + (xmax - xmin) * j / w
-            y = ymin + (ymax - ymin) * i / h
+            x: float = xmin + (xmax - xmin) * j / w
+            y: float = ymin + (ymax - ymin) * i / h
 
-            c = x + 1j * y
-            z = 0j
+            c: complex = x + 1j * y
+            z: complex = 0j
 
             for k in range(max_iter):
                 z = z * z + c
@@ -21,3 +21,4 @@ def mandelbrot_pg(xmin, xmax, ymin, ymax, w, h, max_iter):
             else:
                 img[i, j] = max_iter
     return img
+
