@@ -11,9 +11,9 @@ HEIGHT = 800
 # Legenda na obrazovce
 def legend(screen: pygame.Surface):
 
-    font = pygame.font.SysFont("Arial", 14)
+    font: pygame.font.Font = pygame.font.SysFont("Arial", 14)
 
-    text = [
+    text: list[str] = [
         "Ukončení: ESC",
         "Reset zobrazení: R",
         "Změna fraktálu: Q",
@@ -24,11 +24,11 @@ def legend(screen: pygame.Surface):
         " - A/D: změna imaginární části",
         "Přibližování/oddálení: kolečko myši"
     ]
-    y = 10
+    y: int = 10
     for t in text:
-        label = font.render(t, True, (0, 0, 0))
+        label: pygame.surface.Surface = font.render(t, True, (0, 0, 0))
         screen.blit(label, (10, y))
-        y += 15
+        y: int = y + 15
 
 
 # Převod dat na RGB obraz
