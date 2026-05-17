@@ -5,10 +5,7 @@
 Tento projekt se zaměřuje na vizualizaci fraktálů. Cílem je
 implementovat algoritmy pro efektivní generování známých fraktálů, jako
 jsou Mandelbrotova a Juliova množina (pro
-$f\left(z\right)=z^{2}+c,c\in\mathbb{C}$), a vytvořit interaktivní
-vizualizace (viz [Matplotlib
-widgets](https://matplotlib.org/stable/gallery/widgets/index.html))
-těchto fraktálů pomocí knihovny Matplotlib. Možností je také využít knihovnu [Pygame](https://www.pygame.org/news) pro vytvoření interaktivních vizualizací.
+$f\left(z\right)=z^{2}+c,c\in\mathbb{C}$), a vytvořit interaktivní vizualizaci pomocí těchto fraktálů pomocí knihovny Pygame.
 
 Výstupem projektu budou interaktivní vizualizace fraktálů, které
 umožňují uživateli prozkoumávat různé části fraktálu a přizpůsobovat
