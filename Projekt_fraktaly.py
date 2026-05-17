@@ -4,7 +4,8 @@ import numba
 import Mandelbrot
 import Juliaova_mnoz
 
-WIDTH, HEIGHT = 800, 800
+WIDTH: int = 800
+HEIGHT = 800
 
 
 # Legenda na obrazovce
