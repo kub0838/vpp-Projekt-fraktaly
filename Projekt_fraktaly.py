@@ -8,7 +8,7 @@ WIDTH, HEIGHT = 800, 800
 
 
 # Legenda na obrazovce
-def legend(screen):
+def legend(screen: pygame.Surface):
 
     font = pygame.font.SysFont("Arial", 14)
 
@@ -32,8 +32,9 @@ def legend(screen):
 
 # Převod dat na RGB obraz
 @numba.njit(parallel=True)
-def na_rgb(data, max_iter, color_mode):
-    h, w = data.shape
+def na_rgb(data: np.ndarray, max_iter: int, color_mode: int) -> np.ndarray:
+    h: int = data.shape[0]
+    w: int = data.shape[1]
     img = np.zeros((h, w, 3), dtype=np.uint8)
 
     for i in range(h):
@@ -49,8 +50,8 @@ def na_rgb(data, max_iter, color_mode):
 
 # Zbarvení fraktálů
 @numba.njit(parallel=True)
-def color_map(value, max_iter, color_mode):
-    t = value / max_iter
+def color_map(value: int, max_iter: int, color_mode: int) -> tuple[int, int, int]:
+    t: float = value / max_iter
 
     if color_mode == 0:  # Zelené zbravení
         return (int(255 - (255 * t)), int(255 - (100 * t)), int(255 - (255 * t)))
@@ -74,15 +75,17 @@ def main():
     pygame.display.set_caption("Vizualizace fraktálů")
 
     # Počáteční nastavení zobrazení
-    xmin, xmax = -2, 1
-    ymin, ymax = -1.5, 1.5
-    max_iter = 100
+    xmin: float = -2
+    xmax: float = 1
+    ymin: float = -1.5
+    ymax: float = 1.5
+    max_iter: int = 100
 
-    mode = "mandelbrot"
-    c = -0.7 + 0.27015j
-    color_mode = 0
+    mode: str = "mandelbrot"
+    c: complex = -0.7 + 0.27015j
+    color_mode: int = 0
 
-    running = True
+    running: bool = True
 
     # Funkce pro vykreslení fraktálu
     def render():
@@ -91,8 +94,8 @@ def main():
         else:
             data = Juliaova_mnoz.julia(xmin, xmax, ymin, ymax, WIDTH, HEIGHT, max_iter, c.real, c.imag)
 
-        rgb = na_rgb(data, max_iter, color_mode)
-        surf = pygame.surfarray.make_surface(rgb.swapaxes(0, 1))
+        rgb: np.ndarray = na_rgb(data, max_iter, color_mode)
+        surf: pygame.Surface = pygame.surfarray.make_surface(rgb.swapaxes(0, 1))
         screen.blit(surf, (0, 0))
         legend(screen)
         pygame.display.flip()
@@ -108,14 +111,15 @@ def main():
             # Zoom pomocí kolečka myši
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:
-                    mx, my = pygame.mouse.get_pos()
+                    mx: int = pygame.mouse.get_pos()[0]
+                    my: int = pygame.mouse.get_pos()[1]
 
-                    zx = xmin + (xmax - xmin) * mx / WIDTH
-                    zy = ymin + (ymax - ymin) * my / HEIGHT
+                    zx: float = xmin + (xmax - xmin) * mx / WIDTH
+                    zy: float = ymin + (ymax - ymin) * my / HEIGHT
 
-                    scale = 0.5
-                    dx = (xmax - xmin) * scale
-                    dy = (ymax - ymin) * scale
+                    scale: float = 0.5
+                    dx: float = (xmax - xmin) * scale
+                    dy: float = (ymax - ymin) * scale
 
                     xmin, xmax = zx - dx / 2, zx + dx / 2
                     ymin, ymax = zy - dy / 2, zy + dy / 2
@@ -123,71 +127,80 @@ def main():
                     render()
 
                 elif event.button == 5:
-                    mx, my = pygame.mouse.get_pos()
+                    mx: int = pygame.mouse.get_pos()[0]
+                    my: int = pygame.mouse.get_pos()[1]
 
-                    zx = xmin + (xmax - xmin) * mx / WIDTH
-                    zy = ymin + (ymax - ymin) * my / HEIGHT
+                    zx: float = xmin + (xmax - xmin) * mx / WIDTH
+                    zy: float = ymin + (ymax - ymin) * my / HEIGHT
 
-                    scale = 0.5
-                    dx = (xmax - xmin) * scale
-                    dy = (ymax - ymin) * scale
+                    scale: float = 0.5
+                    dx: float = (xmax - xmin) * scale
+                    dy: float = (ymax - ymin) * scale
 
-                    xmin, xmax = zx - dx * 2, zx + dx * 2
-                    ymin, ymax = zy - dy * 2, zy + dy * 2
+                    xmin: float = zx - dx * 2
+                    xmax: float = zx + dx * 2
+                    ymin: float = zy - dy * 2
+                    ymax: float = zy + dy * 2
                     render()
 
             # Ovládání
             if event.type == pygame.KEYDOWN:
 
                 if event.key == pygame.K_UP:
-                    max_iter += 50
+                    max_iter: int = max_iter + 50
                     render()
 
                 elif event.key == pygame.K_DOWN:
-                    max_iter = max(50, max_iter - 50)
+                    max_iter: int = max(50, max_iter - 50)
                     render()
 
                 elif event.key == pygame.K_q:
                     if mode == "mandelbrot":
-                        mode = "julia"
-                        xmin, xmax = -1.5, 1.5
+                        mode: str = "julia"
+                        xmin: float = -1.5
+                        xmax: float = 1.5
                     else:
-                        mode = "mandelbrot"
-                        xmin, xmax = -2, 1
+                        mode: str = "mandelbrot"
+                        xmin: float = -2
+                        xmax: float = 1
                     render()
 
                 elif event.key == pygame.K_r and mode == "mandelbrot":
-                    xmin, xmax = -2, 1
-                    ymin, ymax = -1.5, 1.5
+                    xmin: float = -2
+                    xmax: float = 1
+                    ymin: float = -1.5
+                    ymax: float = 1.5
                     render()
 
                 elif event.key == pygame.K_r and mode == "julia":
-                    xmin, xmax = -1.5, 1.5
-                    ymin, ymax = -1.5, 1.5
+                    xmin: float = -1.5
+                    xmax: float = 1.5
+                    ymin: float = -1.5
+                    ymax: float = 1.5
                     render()
 
                 # změna parametru Julia
                 elif event.key == pygame.K_a and mode == "julia":
-                    c += -0.01 + 0j
+                    c: complex = c + (-0.01 + 0j)
                     render()
                 elif event.key == pygame.K_d and mode == "julia":
-                    c += 0.01 + 0j
+                    c: complex = c + (0.01 + 0j)
                     render()
                 elif event.key == pygame.K_w and mode == "julia":
-                    c += 0 + 0.01j
+                    c: complex = c + (0 + 0.01j)
                     render()
                 elif event.key == pygame.K_s and mode == "julia":
-                    c += 0 - 0.01j
+                    c: complex = c + (0 - 0.01j)
                     render()
 
                 # Změna barevného režimu
                 elif event.key == pygame.K_m:
-                    color_mode = (color_mode + 1) % 4
+                    color_mode: int = (color_mode + 1) % 4
                     render()
 
                 # Ukončení programu
                 elif event.key == pygame.K_ESCAPE:
-                    running = False
+                    running: bool = False
                     pygame.quit()
 
     pygame.quit()
@@ -195,4 +208,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
