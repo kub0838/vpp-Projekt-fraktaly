@@ -1,11 +1,9 @@
 import pygame
 import numpy as np
-import numba
 import Mandelbrot
 import Juliaova_mnoz
 
-WIDTH: int = 800
-HEIGHT = 800
+WIDTH, HEIGHT = 800, 800
 
 
 # Legenda na obrazovce
@@ -32,7 +30,6 @@ def legend(screen: pygame.Surface):
 
 
 # Převod dat na RGB obraz
-@numba.njit(parallel=True)
 def na_rgb(data: np.ndarray, max_iter: int, color_mode: int) -> np.ndarray:
     h: int = data.shape[0]
     w: int = data.shape[1]
@@ -50,7 +47,6 @@ def na_rgb(data: np.ndarray, max_iter: int, color_mode: int) -> np.ndarray:
 
 
 # Zbarvení fraktálů
-@numba.njit(parallel=True)
 def color_map(value: int, max_iter: int, color_mode: int) -> tuple[int, int, int]:
     t: float = value / max_iter
 
@@ -160,10 +156,14 @@ def main():
                         mode: str = "julia"
                         xmin: float = -1.5
                         xmax: float = 1.5
+                        ymin: float = -1.5
+                        ymax: float = 1.5
                     else:
                         mode: str = "mandelbrot"
                         xmin: float = -2
                         xmax: float = 1
+                        ymin: float = -1.5
+                        ymax: float = 1.5
                     render()
 
                 elif event.key == pygame.K_r and mode == "mandelbrot":
