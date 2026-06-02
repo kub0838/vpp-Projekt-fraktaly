@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Vizualizace fraktálů
 
 ## Textový popis
