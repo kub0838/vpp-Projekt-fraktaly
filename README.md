@@ -27,4 +27,3 @@ množinu).
   - měnit barevné schéma vykreslení počtu iterací do divergence
   - přizpůsobovat parametry pro generování fraktálů (např. počet
     iterací, $c$)
->>>>>>> 423b21d (text)
