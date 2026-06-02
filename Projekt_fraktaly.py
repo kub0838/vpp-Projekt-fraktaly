@@ -3,7 +3,7 @@ import numpy as np
 import Mandelbrot
 import Juliaova_mnoz
 
-WIDTH, HEIGHT = 1000, 1000
+WIDTH, HEIGHT = 900, 900
 
 
 # Legenda na obrazovce
