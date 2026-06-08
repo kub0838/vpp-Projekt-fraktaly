@@ -98,7 +98,7 @@ def main():
         pygame.display.flip()
 
     render()
-    
+
     scale: float = 2
 
     while running:
@@ -119,8 +119,8 @@ def main():
                     sx: float = (xmin + xmax)/2  # Střed x roviny
                     sy: float = (ymin + ymax)/2  # Střed y roviny
 
-                    dx: float = abs(((xmin-xmax)/2)/scale)  # Délka od středu po hranici
-                    dy: float = abs(((ymin-ymax)/2)/scale)  # Délka od středu po hranici
+                    dx: float = abs(((xmin-xmax)/2)/scale)  # Délka od středu po hranici a zmenšená o poměru "scale"
+                    dy: float = abs(((ymin-ymax)/2)/scale)  # Délka od středu po hranici a zmenšená o poměru "scale"
 
                     sx = (sx + zx)/2  # Nový střed x roviny
                     sy = (sy + zy)/2  # Nový střed y roviny
@@ -142,13 +142,13 @@ def main():
 
                     sx: float = (xmin + xmax)/2  # Střed x roviny
                     sy: float = (ymin + ymax)/2  # Střed y roviny
-                    
-                    dx: float = abs(((xmin-xmax)/2)*scale)  # Délka od středu po hranici
-                    dy: float = abs(((ymin-ymax)/2)*scale)  # Délka od středu po hranici
-                    
+
+                    dx: float = abs(((xmin-xmax)/2)*scale)  # Délka od středu po hranici a zvětšená o poměru "scale"
+                    dy: float = abs(((ymin-ymax)/2)*scale)  # Délka od středu po hranici a zvětšená o poměru "scale"
+
                     sx = (sx + zx)/2  # Nový střed x roviny
                     sy = (sy + zy)/2  # Nový střed y roviny
-                    
+
                     xmin: float = sx - dx  # Přepočet hranic roviny
                     xmax: float = sx + dx
                     ymin: float = sy - dy
