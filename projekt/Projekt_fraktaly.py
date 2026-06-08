@@ -119,8 +119,8 @@ def main():
                     sx: float = (xmin + xmax)/2  # Střed x roviny
                     sy: float = (ymin + ymax)/2  # Střed y roviny
 
-                    dx: float = abs((xmin-sx)/scale)
-                    dy: float = abs((ymin-sy)/scale)
+                    dx: float = abs(((xmin-xmax)/2)/scale)  # Délka od středu po hranici
+                    dy: float = abs(((ymin-ymax)/2)/scale)  # Délka od středu po hranici
 
                     sx = (sx + zx)/2  # Nový střed x roviny
                     sy = (sy + zy)/2  # Nový střed y roviny
@@ -143,8 +143,8 @@ def main():
                     sx: float = (xmin + xmax)/2  # Střed x roviny
                     sy: float = (ymin + ymax)/2  # Střed y roviny
                     
-                    dx: float = abs((xmin-sx)*scale)
-                    dy: float = abs((ymin-sy)*scale)
+                    dx: float = abs(((xmin-xmax)/2)*scale)  # Délka od středu po hranici
+                    dy: float = abs(((ymin-ymax)/2)*scale)  # Délka od středu po hranici
                     
                     sx = (sx + zx)/2  # Nový střed x roviny
                     sy = (sy + zy)/2  # Nový střed y roviny
