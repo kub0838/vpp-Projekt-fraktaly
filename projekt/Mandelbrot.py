@@ -3,7 +3,8 @@ import numba
 
 
 @numba.njit(parallel=True)
-def mandelbrot_pg(xmin: float, xmax: float, ymin: float, ymax: float, w: int, h: int, max_iter: int) -> np.ndarray:
+def mandelbrot_pg(xmin: float, xmax: float, ymin: float, ymax: float, w: int, 
+                  h: int, max_iter: int) -> np.ndarray:
     img: np.ndarray = np.zeros((h, w))
     for i in numba.prange(h):
         for j in numba.prange(w):
