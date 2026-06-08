@@ -87,9 +87,9 @@ def main():
     # Funkce pro vykreslení fraktálu
     def render():
         if mode == "mandelbrot":
-            data = Mandelbrot.mandelbrot_pg(xmin, xmax, ymin, ymax, WIDTH, HEIGHT, max_iter)
+            data: np.ndarray = Mandelbrot.mandelbrot_pg(xmin, xmax, ymin, ymax, WIDTH, HEIGHT, max_iter)
         else:
-            data = Juliaova_mnoz.julia(xmin, xmax, ymin, ymax, WIDTH, HEIGHT, max_iter, c.real, c.imag)
+            data: np.ndarray = Juliaova_mnoz.julia(xmin, xmax, ymin, ymax, WIDTH, HEIGHT, max_iter, c.real, c.imag)
 
         rgb: np.ndarray = na_rgb(data, max_iter, color_mode)
         surf: pygame.Surface = pygame.surfarray.make_surface(rgb.swapaxes(0, 1))
