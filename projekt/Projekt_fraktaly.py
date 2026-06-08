@@ -98,6 +98,8 @@ def main():
         pygame.display.flip()
 
     render()
+    
+    scale: float = 2
 
     while running:
         for event in pygame.event.get():
@@ -111,33 +113,47 @@ def main():
                     mx: int = pygame.mouse.get_pos()[0]
                     my: int = pygame.mouse.get_pos()[1]
 
-                    zx: float = xmin + (xmax - xmin) * mx / WIDTH
-                    zy: float = ymin + (ymax - ymin) * my / HEIGHT
+                    zx: float = xmin + (xmax - xmin) * mx / WIDTH  # Pozice x myši na hodnotu v rovině
+                    zy: float = ymin + (ymax - ymin) * my / HEIGHT  # Pozice y myši na hodnotu v rovině
 
-                    scale: float = 0.5
-                    dx: float = (xmax - xmin) * scale
-                    dy: float = (ymax - ymin) * scale
+                    sx: float = (xmin + xmax)/2  # Střed x roviny
+                    sy: float = (ymin + ymax)/2  # Střed y roviny
 
-                    xmin, xmax = zx - dx / 2, zx + dx / 2
-                    ymin, ymax = zy - dy / 2, zy + dy / 2
+                    dx: float = abs((xmin-sx)/scale)
+                    dy: float = abs((ymin-sy)/scale)
+
+                    sx = (sx + zx)/2  # Nový střed x roviny
+                    sy = (sy + zy)/2  # Nový střed y roviny
+
+                    xmin: float = sx - dx  # Přepočet hranic roviny
+                    xmax: float = sx + dx
+                    ymin: float = sy - dy
+                    ymax: float = sy + dy
 
                     render()
 
                 elif event.button == 5:
+
                     mx: int = pygame.mouse.get_pos()[0]
                     my: int = pygame.mouse.get_pos()[1]
 
                     zx: float = xmin + (xmax - xmin) * mx / WIDTH
                     zy: float = ymin + (ymax - ymin) * my / HEIGHT
 
-                    scale: float = 0.5
-                    dx: float = (xmax - xmin) * scale
-                    dy: float = (ymax - ymin) * scale
+                    sx: float = (xmin + xmax)/2  # Střed x roviny
+                    sy: float = (ymin + ymax)/2  # Střed y roviny
+                    
+                    dx: float = abs((xmin-sx)*scale)
+                    dy: float = abs((ymin-sy)*scale)
+                    
+                    sx = (sx + zx)/2  # Nový střed x roviny
+                    sy = (sy + zy)/2  # Nový střed y roviny
+                    
+                    xmin: float = sx - dx  # Přepočet hranic roviny
+                    xmax: float = sx + dx
+                    ymin: float = sy - dy
+                    ymax: float = sy + dy
 
-                    xmin: float = zx - dx * 2
-                    xmax: float = zx + dx * 2
-                    ymin: float = zy - dy * 2
-                    ymax: float = zy + dy * 2
                     render()
 
             # Ovládání
